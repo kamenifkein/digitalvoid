@@ -1,0 +1,187 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #020204;
+    color: #94a3b8;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+}
+
+.void-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    background: #020204;
+}
+
+/* Элементы фона полностью пропускают клики сквозь себя */
+.void-bg-glow {
+    position: absolute;
+    width: 100vmax;
+    height: 100vmax;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(20, 30, 60, 0.4) 0%, rgba(5, 5, 15, 0.2) 40%, rgba(2, 2, 4, 1) 70%);
+    animation: pulseGlow 10s ease-in-out infinite alternate;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.void-mist {
+    position: absolute;
+    width: 160vmax;
+    height: 160vmax;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    background: radial-gradient(circle, transparent 10%, rgba(25, 35, 65, 0.15) 30%, transparent 60%);
+    filter: blur(40px);
+    animation: rotateMist 40s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#vortex {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background: #000;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 30px 10px #000,
+        0 0 70px 25px rgba(15, 23, 42, 0.6),
+        0 0 120px 40px rgba(30, 41, 59, 0.2);
+    z-index: 3;
+    pointer-events: none;
+}
+
+@keyframes pulseGlow {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+}
+
+@keyframes rotateMist {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Стили интерфейса */
+.interface-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 650px;
+    padding: 20px;
+    z-index: 10;
+    position: relative;
+    transition: opacity 0.8s ease;
+}
+
+.title {
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: #f1f5f9;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 20px rgba(241, 245, 249, 0.08);
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #475569;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    max-width: 500px;
+}
+
+.input-area {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+#void-input {
+    width: 100%;
+    height: 180px;
+    background: rgba(3, 3, 5, 0.6);
+    border: 1px solid rgba(40, 55, 80, 0.5);
+    border-radius: 8px;
+    outline: none;
+    resize: none;
+    color: #cbd5e1;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    text-align: center;
+    font-family: inherit;
+    padding: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+#void-input:focus {
+    border-color: rgba(70, 90, 120, 0.8);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
+}
+
+#void-input::placeholder {
+    color: #334155;
+}
+
+.btn-void {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #1e293b;
+    padding: 14px 36px;
+    font-size: 1rem;
+    border-radius: 24px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.4s ease;
+}
+
+.btn-void:hover {
+    color: #f1f5f9;
+    border-color: #475569;
+    box-shadow: 0 0 25px rgba(241, 245, 249, 0.03);
+}
+
+.flying-letter {
+    position: absolute;
+    color: #cbd5e1;
+    font-size: 1.15rem;
+    white-space: pre;
+    pointer-events: none;
+    z-index: 5;
+    transition: all 5.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.void-response-text {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #8492a6;
+    letter-spacing: 0.1em;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    transform: scale(0.95);
+    text-shadow: 0 0 25px rgba(132, 146, 166, 0.15);
+    z-index: 20;
+    pointer-events: none;
+}
+
+.void-response-text.visible {
+    opacity: 1;
+    transform: scale(1);
+}
